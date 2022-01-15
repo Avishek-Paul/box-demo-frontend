@@ -12,6 +12,7 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import Uploader from './components/Uploader'
+import Navbar from './components/Navbar'
 
 const colors = {
   brand: {
@@ -39,6 +40,7 @@ function processFile(file) {
 function App() {
   return (
     <ChakraProvider theme={theme}>
+      <Navbar />
       <Uploader onFileAccepted={processFile} />
     </ChakraProvider>
   );
