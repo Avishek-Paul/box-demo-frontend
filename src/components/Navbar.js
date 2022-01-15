@@ -12,8 +12,9 @@ import {
     PopoverTrigger,
     PopoverContent,
     useColorModeValue,
-    useBreakpointValue,
     useDisclosure,
+    Image,
+    Center
 } from '@chakra-ui/react';
 import {
     HamburgerIcon,
@@ -37,6 +38,7 @@ export default function WithSubnavigation() {
                 borderStyle={'solid'}
                 borderColor={useColorModeValue('gray.200', 'gray.900')}
                 align={'center'}>
+
                 <Flex
                     flex={{ base: 1, md: 'auto' }}
                     ml={{ base: -2 }}
@@ -50,17 +52,15 @@ export default function WithSubnavigation() {
                         aria-label={'Toggle Navigation'}
                     />
                 </Flex>
-                <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-                    <Text
-                        textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-                        fontFamily={'heading'}
-                        color={useColorModeValue('gray.800', 'white')}>
-                        Logo
-                    </Text>
 
-                    <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-                        <DesktopNav />
-                    </Flex>
+                <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+                    <Center>
+                        <Image src="/logo192.png" boxSize='32px' mr={2} />
+                        <Text color='brand.blue'>Bank of America</Text>
+                        <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+                            <DesktopNav />
+                        </Flex>
+                    </Center>
                 </Flex>
 
                 <Stack
@@ -69,24 +69,16 @@ export default function WithSubnavigation() {
                     direction={'row'}
                     spacing={6}>
                     <Button
-                        as={'a'}
-                        fontSize={'sm'}
-                        fontWeight={400}
-                        variant={'link'}
-                        href={'#'}>
-                        Sign In
-                    </Button>
-                    <Button
                         display={{ base: 'none', md: 'inline-flex' }}
                         fontSize={'sm'}
                         fontWeight={600}
-                        color={'white'}
-                        bg={'pink.400'}
+                        color='white'
+                        bg='brand.red'
                         href={'#'}
                         _hover={{
-                            bg: 'pink.300',
+                            bg: 'brand.red_hover',
                         }}>
-                        Sign Up
+                        Sign In
                     </Button>
                 </Stack>
             </Flex>
