@@ -13,6 +13,7 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import Uploader from './components/Uploader'
 import Navbar from './components/Navbar'
+import DocumentCenter from './containers/DocumentCenter'
 
 const colors = {
   brand: {
@@ -41,6 +42,7 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <Navbar />
+      <DocumentCenter />
       <Uploader onFileAccepted={processFile} />
     </ChakraProvider>
   );
