@@ -1,5 +1,7 @@
 import { Heading, Text, Stack, Link } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import Uploader from '../components/Uploader'
+import processFile from '../util/processFile'
 
 const DocumentCenter = () => {
     return <Stack ml={4}>
@@ -18,21 +20,24 @@ const DocumentCenter = () => {
             </TabList>
             <TabPanels>
                 <TabPanel>
-                    <Text>
+                    <Text mb={2}>
                         Please upload any identifying documents. Examples include Passports, Driver's Licenses or Permits, State Issued ID Cards.
                         Full list of qualified documents can be found <Link href="#" style={{ textDecoration: "underline" }}>here</Link>.
                     </Text>
+                    <Uploader onFileAccepted={processFile} />
                 </TabPanel>
                 <TabPanel>
-                    <Text>
+                    <Text mb={2}>
                         Please upload any relevant tax documents. Examples include W-2, 1095, 1098, and 1099 forms.
                         Full list of qualified documents can be found <Link href="#" style={{ textDecoration: "underline" }}>here</Link>.
                     </Text>
+                    <Uploader onFileAccepted={processFile} />
                 </TabPanel>
                 <TabPanel>
-                    <Text>
+                    <Text mb={2}>
                         Please upload any relevant bank statements.
                     </Text>
+                    <Uploader onFileAccepted={processFile} />
                 </TabPanel>
             </TabPanels>
         </Tabs>
