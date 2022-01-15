@@ -16,9 +16,9 @@ import Navbar from './components/Navbar'
 
 const colors = {
   brand: {
-    900: '#0065b3',
-    800: '#e61030',
-    700: '#FFFFFF',
+    'blue': '#0065b3',
+    'red': '#e61030',
+    'red_hover': '#dd1030'
   },
 }
 
