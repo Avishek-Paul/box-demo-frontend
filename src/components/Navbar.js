@@ -22,6 +22,7 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
 } from '@chakra-ui/icons';
+import { useState } from 'react'
 
 export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
@@ -91,8 +92,12 @@ export default function WithSubnavigation() {
 }
 
 const DesktopNav = () => {
-    const linkColor = useColorModeValue('gray.600', 'gray.200');
-    const linkHoverColor = useColorModeValue('gray.800', 'white');
+
+    const [currentLink, setcurrentLink] = useState()
+
+    const linkColor = useColorModeValue('black');
+    const linkHoverColor = useColorModeValue('brand.red_hover', 'white');
+    const linkClickColor = useColorModeValue('brand.red', 'white')
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
     return (
@@ -106,11 +111,13 @@ const DesktopNav = () => {
                                 href={navItem.href ?? '#'}
                                 fontSize={'sm'}
                                 fontWeight={500}
-                                color={linkColor}
+                                color={currentLink === navItem.label ? linkClickColor : linkColor}
                                 _hover={{
                                     textDecoration: 'none',
                                     color: linkHoverColor,
-                                }}>
+                                }}
+                                onClick={() => { setcurrentLink(navItem.label) }}
+                            >
                                 {navItem.label}
                             </Link>
                         </PopoverTrigger>
@@ -243,41 +250,15 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
     {
-        label: 'Inspiration',
-        children: [
-            {
-                label: 'Explore Design Work',
-                subLabel: 'Trending Design to inspire you',
-                href: '#',
-            },
-            {
-                label: 'New & Noteworthy',
-                subLabel: 'Up-and-coming Designers',
-                href: '#',
-            },
-        ],
+        label: 'Loan Information',
+        href: '#'
     },
     {
-        label: 'Find Work',
-        children: [
-            {
-                label: 'Job Board',
-                subLabel: 'Find your dream design job',
-                href: '#',
-            },
-            {
-                label: 'Freelance Projects',
-                subLabel: 'An exclusive list for contract work',
-                href: '#',
-            },
-        ],
+        label: 'Apply for a Loan',
+        href: '#'
     },
     {
-        label: 'Learn Design',
-        href: '#',
-    },
-    {
-        label: 'Hire Designers',
-        href: '#',
+        label: 'Document Center',
+        href: '#'
     },
 ];
