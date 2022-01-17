@@ -79,7 +79,7 @@ export default function WithSubnavigation() {
                         _hover={{
                             bg: 'brand.red_hover',
                         }}>
-                        Sign In
+                        Sign Out
                     </Button>
                 </Stack>
             </Flex>
