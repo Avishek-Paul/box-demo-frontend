@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
     List,
     ListItem,
@@ -31,6 +31,10 @@ const Explorer = ({ initialFolderID }) => {
                 }
             })
     }
+
+    useEffect(() => {
+        trackPromise(getFiles(folder))
+    }, [])
 
     return <List spacing={0}>
         {
