@@ -22,11 +22,11 @@ export default function Dropzone() {
                 console.log(response)
                 if ("error" in response) {
                     setDocs(
-                        { ...docs, [response.name]: { success: false, error: response.error } }
+                        docs => { return { ...docs, [response.name]: { success: false, error: response.error } } }
                     )
                 } else {
                     setDocs(
-                        { ...docs, [response.name]: { success: true } }
+                        docs => { return { ...docs, [response.name]: { success: true } } }
                     )
                 }
             })
