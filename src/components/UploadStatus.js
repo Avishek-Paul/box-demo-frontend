@@ -12,7 +12,7 @@ const UploadStatus = ({ statusList }) => {
             Object.keys(statusList).map(item => {
                 return <ListItem key={item}>
                     <ListIcon as={statusList[item].success ? MdCheckCircle : MdCancel} color={statusList[item].success ? 'green.500' : 'red.500'} />
-                    {item}
+                    {item} {"error" in statusList[item] ? `- ${statusList[item].error}` : null}
                 </ListItem>
             })
         }
