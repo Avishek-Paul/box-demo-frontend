@@ -1,7 +1,6 @@
 import { Heading, Text, Stack, Link } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import Uploader from '../components/Uploader'
-import UploadStatus from '../components/UploadStatus'
 
 const DocumentCenter = () => {
 
