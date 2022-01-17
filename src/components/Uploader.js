@@ -1,19 +1,22 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { Center, useColorModeValue, Icon, Stack } from '@chakra-ui/react';
+import { Center, useColorModeValue, Icon, Stack, Text, Spinner } from '@chakra-ui/react';
 import { FaFileUpload } from 'react-icons/fa'
 import UploadStatus from '../components/UploadStatus'
+import { usePromiseTracker } from "react-promise-tracker";
+import { trackPromise } from 'react-promise-tracker';
 
 const acceptedFileExtensions = ['.pdf', '.txt', '.jpg', '.jpeg', '.png']
 
 export default function Dropzone() {
 
     const [docs, setDocs] = useState({})
+    const { promiseInProgress } = usePromiseTracker();
 
     function processFile(file) {
         const data = new FormData()
         data.append('file', file)
-        fetch(`${"http://172.20.120.71:4000"}/upload`, {
+        return fetch(`${"http://172.20.120.71:4000"}/upload`, {
             method: 'POST',
             body: data
         })
@@ -34,15 +37,18 @@ export default function Dropzone() {
 
     const onDrop = (acceptedFiles) => {
         acceptedFiles.forEach(file => {
-            processFile(file);
+            trackPromise(processFile(file));
         });
     };
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        onDrop, accept: acceptedFileExtensions, multiple: true,
+        onDrop,
+        accept: acceptedFileExtensions,
+        multiple: true,
+        disabled: promiseInProgress
     });
 
-    const dropText = isDragActive ? 'Drop the file here!' : 'Drag and drop file here, or click to select files';
+    const dropText = isDragActive ? 'Drop the files here!' : 'Drag and drop files here, or click to select files';
 
     const activeBg = useColorModeValue('gray.100', 'gray.600');
     const borderColor = useColorModeValue(
@@ -64,8 +70,8 @@ export default function Dropzone() {
                 {...getRootProps()}
             >
                 <input {...getInputProps()} />
-                <Icon as={FaFileUpload} mr={2} />
-                <p>{dropText}</p>
+                {promiseInProgress ? <Spinner size='md' color='brand.red' /> : <Icon as={FaFileUpload} mr={2} />}
+                <Text ml={promiseInProgress ? 2 : 0}>{dropText}</Text>
             </Center>
             {Object.keys(docs).length > 0 ? <UploadStatus statusList={docs} /> : null}
         </Stack>
