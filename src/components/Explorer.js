@@ -4,7 +4,8 @@ import {
     ListItem,
     ListIcon,
     Stack,
-    Skeleton
+    Skeleton,
+    Text
 } from '@chakra-ui/react'
 import { AiFillFolderOpen, AiFillFile } from 'react-icons/ai'
 import { usePromiseTracker } from "react-promise-tracker";
@@ -13,6 +14,7 @@ import { trackPromise } from 'react-promise-tracker';
 const Explorer = ({ initialFolderID }) => {
 
     const [folder, setFolder] = useState(initialFolderID)
+    const [folderName, setFolderName] = useState("")
     const [files, setFiles] = useState([])
     const { promiseInProgress } = usePromiseTracker();
 
@@ -25,7 +27,8 @@ const Explorer = ({ initialFolderID }) => {
                     // Handle Error
                 } else {
                     // update current folder state
-                    setFolder(response.folder_id)
+                    setFolder(response.folder.id)
+                    setFolderName(response.folder.name)
                     // update current files
                     setFiles(response.files)
                 }
@@ -43,6 +46,7 @@ const Explorer = ({ initialFolderID }) => {
     }
 
     const displayItems = <Stack>
+        <Text>Current Folder: {folderName}</Text>
         <List spacing={0}>
             {
                 files.map(item => {
