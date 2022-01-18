@@ -36,15 +36,17 @@ const Explorer = ({ initialFolderID }) => {
         trackPromise(getFiles(folder))
     }, [folder])
 
-    const handleClick = (e, folderID) => {
-        setFolder(folderID)
+    const handleClick = (e, folderID, itemType) => {
+        if (itemType === "folder") {
+            setFolder(folderID)
+        }
     }
 
     const displayItems = <Stack>
         <List spacing={0}>
             {
                 files.map(item => {
-                    return <ListItem key={item.id} onClick={((e) => handleClick(e, item.id))}>
+                    return <ListItem key={item.id} onClick={((e) => handleClick(e, item.id, item.type))}>
                         <ListIcon as={item.type === "folder" ? AiFillFolderOpen : AiFillFile} />
                         {item.name} {item.type === "folder" ? `(${item.num_items} items)` : null}
                     </ListItem>
