@@ -11,4 +11,15 @@ Created using create-react-app. Styling done primarily with Chakra-ui.
 Ensure that you are running the flask webserver from this project: https://github.com/Avishek-Paul/box-demo-backend/tree/main
 
 Run the following commands:
+
 `npm start`
+
+# Navigating the project
+
+By default the app will be available at http://localhost:3000
+
+Navigating to this page will allow you to view the main page. This is what an end user would see when visiting the page. They can upload documents here.
+
+For administrators, they can navigate to http://localhost:3000/admin
+
+This page is where they will be able to see a unique folder per loan applicant (named with a uuid). They can click into each folder and view the individual files.
