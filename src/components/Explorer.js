@@ -16,8 +16,8 @@ const Explorer = ({ initialFolderID }) => {
     const [files, setFiles] = useState([])
     const { promiseInProgress } = usePromiseTracker();
 
-    function getFiles(folder) {
-        return fetch(`http://172.20.124.68:5000/folder?id=${folder}`)
+    function getFiles(folderID) {
+        return fetch(`http://172.20.124.68:5000/folder?id=${folderID}`)
             .then(response => response.json())
             .then(response => {
                 console.log(response)
@@ -25,11 +25,9 @@ const Explorer = ({ initialFolderID }) => {
                     // Handle Error
                 } else {
                     // update current folder state
-                    const folderID = response.folder_id
-                    setFolder(folderID)
+                    setFolder(response.folder_id)
                     // update current files
-                    const files = response.files
-                    setFiles(files)
+                    setFiles(response.files)
                 }
             })
     }
@@ -38,11 +36,15 @@ const Explorer = ({ initialFolderID }) => {
         trackPromise(getFiles(folder))
     }, [folder])
 
+    const handleClick = (e, folderID) => {
+        setFolder(folderID)
+    }
+
     const displayItems = <Stack>
         <List spacing={0}>
             {
                 files.map(item => {
-                    return <ListItem key={item}>
+                    return <ListItem key={item.id} onClick={((e) => handleClick(e, item.id))}>
                         <ListIcon as={item.type === "folder" ? AiFillFolderOpen : AiFillFile} />
                         {item.name} {item.type === "folder" ? `(${item.num_items} items)` : null}
                     </ListItem>
