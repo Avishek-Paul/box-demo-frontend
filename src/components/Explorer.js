@@ -3,7 +3,8 @@ import {
     List,
     ListItem,
     ListIcon,
-    Stack
+    Stack,
+    Skeleton
 } from '@chakra-ui/react'
 import { AiFillFolderOpen, AiFillFile } from 'react-icons/ai'
 import { usePromiseTracker } from "react-promise-tracker";
@@ -37,7 +38,7 @@ const Explorer = ({ initialFolderID }) => {
         trackPromise(getFiles(folder))
     }, [folder])
 
-    return <Stack ml={4} mt={2}>
+    const displayItems = <Stack>
         <List spacing={0}>
             {
                 files.map(item => {
@@ -49,6 +50,12 @@ const Explorer = ({ initialFolderID }) => {
             }
         </List>
     </Stack>
+
+    const loadingIndicator = <Stack>
+        {[...Array(5)].map((e, i) => <Skeleton height={'20px'} key={i} />)}
+    </Stack>
+
+    return promiseInProgress ? loadingIndicator : displayItems
 }
 
 export default Explorer

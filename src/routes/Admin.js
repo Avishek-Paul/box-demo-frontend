@@ -1,4 +1,4 @@
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme, Heading, Stack } from '@chakra-ui/react';
 import Navbar from '../components/Navbar'
 import Explorer from '../components/Explorer'
 
@@ -15,7 +15,10 @@ const theme = extendTheme({ colors })
 const Admin = () => {
     return <ChakraProvider theme={theme}>
         <Navbar />
-        <Explorer initialFolderID={0} />
+        <Stack ml={4} mt={2}>
+            <Heading>Uploaded Documents</Heading>
+            <Explorer initialFolderID={0} />
+        </Stack>
     </ChakraProvider>
 }
 
