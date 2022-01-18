@@ -5,17 +5,26 @@ import {
     ListIcon,
     Stack,
     Skeleton,
-    Text
+    Link,
+    Text,
+    Icon
 } from '@chakra-ui/react'
 import { AiFillFolderOpen, AiFillFile } from 'react-icons/ai'
+import { RiArrowGoBackFill } from 'react-icons/ri'
 import { usePromiseTracker } from "react-promise-tracker";
 import { trackPromise } from 'react-promise-tracker';
 
 const Explorer = ({ initialFolderID }) => {
 
+    // folder id and folder name
     const [folder, setFolder] = useState(initialFolderID)
     const [folderName, setFolderName] = useState("")
+    // parent folder id and folder name
+    const [parentFolder, setparentFolder] = useState(null)
+    const [parentFolderName, setparentFolderName] = useState("")
+    // current files
     const [files, setFiles] = useState([])
+
     const { promiseInProgress } = usePromiseTracker();
 
     function getFiles(folderID) {
@@ -26,11 +35,16 @@ const Explorer = ({ initialFolderID }) => {
                 if ("error" in response) {
                     // Handle Error
                 } else {
-                    // update current folder state
+                    // update current folder states
                     setFolder(response.folder.id)
                     setFolderName(response.folder.name)
                     // update current files
                     setFiles(response.files)
+                    // update parent states
+                    if (response.folder.id !== 0) {
+                        setparentFolder(response.folder.parent.id)
+                        setparentFolderName(response.folder.parent.name)
+                    }
                 }
             })
     }
@@ -39,18 +53,23 @@ const Explorer = ({ initialFolderID }) => {
         trackPromise(getFiles(folder))
     }, [folder])
 
-    const handleClick = (e, folderID, itemType) => {
+    const handleClick = (e, itemType, item) => {
         if (itemType === "folder") {
-            setFolder(folderID)
+            setFolder(item.id)
         }
     }
 
+    const backButton = <Link onClick={() => { setFolder(parentFolder) }}>
+        <Icon as={RiArrowGoBackFill} /> Return to {parentFolderName}
+    </Link>
+
     const displayItems = <Stack>
         <Text>Current Folder: {folderName}</Text>
+        {folder !== 0 && backButton}
         <List spacing={0}>
             {
                 files.map(item => {
-                    return <ListItem key={item.id} onClick={((e) => handleClick(e, item.id, item.type))}>
+                    return <ListItem key={item.id} onClick={((e) => handleClick(e, item.type, item))}>
                         <ListIcon as={item.type === "folder" ? AiFillFolderOpen : AiFillFile} />
                         {item.name} {item.type === "folder" ? `(${item.num_items} items)` : null}
                     </ListItem>
