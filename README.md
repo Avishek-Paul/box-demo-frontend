@@ -19,7 +19,10 @@ Run the following commands:
 By default the app will be available at http://localhost:3000
 
 Navigating to this page will allow you to view the main page. This is what an end user would see when visiting the page. They can upload documents here.
+![image](https://user-images.githubusercontent.com/29755490/149863762-ed4959f3-1e32-4217-886f-6f21d0433817.png)
+
 
 For administrators, they can navigate to http://localhost:3000/admin
 
 This page is where they will be able to see a unique folder per loan applicant (named with a uuid). They can click into each folder and view the individual files.
+![image](https://user-images.githubusercontent.com/29755490/149863813-1f130271-8617-4442-a0e4-646138a663aa.png)
