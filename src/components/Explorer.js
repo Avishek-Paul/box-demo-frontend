@@ -3,8 +3,9 @@ import {
     List,
     ListItem,
     ListIcon,
+    Stack
 } from '@chakra-ui/react'
-import { MdCancel, MdCheckCircle } from 'react-icons/md'
+import { AiFillFolderOpen, AiFillFile } from 'react-icons/ai'
 import { usePromiseTracker } from "react-promise-tracker";
 import { trackPromise } from 'react-promise-tracker';
 
@@ -15,7 +16,7 @@ const Explorer = ({ initialFolderID }) => {
     const { promiseInProgress } = usePromiseTracker();
 
     function getFiles(folder) {
-        return fetch(`${"http://172.20.125.101:4000/"}/folder?id=${154202022019}`)
+        return fetch(`http://172.20.124.68:5000/folder?id=${folder}`)
             .then(response => response.json())
             .then(response => {
                 console.log(response)
@@ -34,19 +35,20 @@ const Explorer = ({ initialFolderID }) => {
 
     useEffect(() => {
         trackPromise(getFiles(folder))
-    }, [])
+    }, [folder])
 
-    return <List spacing={0}>
-        {
-            files.map(item => {
-                return <ListItem key={item}>
-                    <ListIcon as={item.type === "folder" ? MdCheckCircle : MdCancel} />
-                    {item.name}
-                </ListItem>
-            })
-        }
-    </List>
-
+    return <Stack ml={4} mt={2}>
+        <List spacing={0}>
+            {
+                files.map(item => {
+                    return <ListItem key={item}>
+                        <ListIcon as={item.type === "folder" ? AiFillFolderOpen : AiFillFile} />
+                        {item.name} {item.type === "folder" ? `(${item.num_items} items)` : null}
+                    </ListItem>
+                })
+            }
+        </List>
+    </Stack>
 }
 
 export default Explorer

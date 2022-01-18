@@ -1,5 +1,6 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import Navbar from '../components/Navbar'
+import Explorer from '../components/Explorer'
 
 const colors = {
     brand: {
@@ -14,6 +15,7 @@ const theme = extendTheme({ colors })
 const Admin = () => {
     return <ChakraProvider theme={theme}>
         <Navbar />
+        <Explorer initialFolderID={0} />
     </ChakraProvider>
 }
 

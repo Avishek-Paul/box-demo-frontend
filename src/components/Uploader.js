@@ -16,7 +16,7 @@ export default function Dropzone() {
     function processFile(file) {
         const data = new FormData()
         data.append('file', file)
-        return fetch(`${"http://172.20.125.101:4000/"}/upload?folder_id=${154202022019}`, {
+        return fetch(`http://172.20.124.68:5000/upload?folder_id=${154202022019}`, {
             method: 'POST',
             body: data
         })
