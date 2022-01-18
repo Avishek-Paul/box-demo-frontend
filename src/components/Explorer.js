@@ -9,6 +9,7 @@ import {
     Text,
     Icon
 } from '@chakra-ui/react'
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { AiFillFolderOpen, AiFillFile } from 'react-icons/ai'
 import { RiArrowGoBackFill } from 'react-icons/ri'
 import { usePromiseTracker } from "react-promise-tracker";
@@ -69,9 +70,13 @@ const Explorer = ({ initialFolderID }) => {
         <List spacing={0}>
             {
                 files.map(item => {
+                    const isFolder = item.type === "folder"
                     return <ListItem key={item.id} onClick={((e) => handleClick(e, item.type, item))}>
-                        <ListIcon as={item.type === "folder" ? AiFillFolderOpen : AiFillFile} />
-                        {item.name} {item.type === "folder" ? `(${item.num_items} items)` : null}
+                        <Link href={!isFolder && item.shared_link} isExternal={!isFolder}>
+                            <ListIcon as={isFolder ? AiFillFolderOpen : AiFillFile} />
+                            {item.name} {isFolder && `(${item.num_items} items)`}
+                            {!isFolder && <ExternalLinkIcon />}
+                        </Link>
                     </ListItem>
                 })
             }
