@@ -29,7 +29,7 @@ const Explorer = ({ initialFolderID }) => {
     const { promiseInProgress } = usePromiseTracker();
 
     function getFiles(folderID) {
-        return fetch(`http://172.20.124.68:5000/folder?id=${folderID}`)
+        return fetch(`http://localhost:5000/folder?id=${folderID}`)
             .then(response => response.json())
             .then(response => {
                 console.log(response)
